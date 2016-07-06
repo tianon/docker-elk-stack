@@ -1,0 +1,40 @@
+version: '2'
+
+services:
+
+    logstash:
+        image: logstash:2.3
+        restart: always
+        command: [
+            '-e',
+            '
+                input {
+                    gelf {
+                    }
+                    tcp {
+                        port => 5000
+                    }
+                }
+                output {
+                    elasticsearch {
+                        hosts => "elasticsearch:9200"
+                    }
+                }
+            ',
+        ]
+        expose:
+            - 12201/udp
+            - 5000/tcp
+        ports:
+            - 12201:12201/udp
+            - 5000:5000/tcp
+
+    elasticsearch:
+        image: elasticsearch:2.3
+        restart: always
+
+    kibana:
+        image: kibana:4.5
+        restart: always
+        ports:
+            - 5601:5601
