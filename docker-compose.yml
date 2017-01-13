@@ -1,9 +1,11 @@
+# --log-driver gelf --log-opt gelf-address=udp://localhost:12201
+
 version: '2'
 
 services:
 
     logstash:
-        image: logstash:2.3
+        image: logstash:5-alpine
         restart: always
         command: [
             '-e',
@@ -30,11 +32,11 @@ services:
             - 5000:5000/tcp
 
     elasticsearch:
-        image: elasticsearch:2.3
+        image: elasticsearch:5-alpine
         restart: always
 
     kibana:
-        image: kibana:4.5
+        image: kibana:5
         restart: always
         ports:
             - 5601:5601
