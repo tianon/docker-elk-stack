@@ -7,9 +7,9 @@ services:
     logstash:
         image: logstash:5-alpine
         restart: always
-        command: [
-            '-e',
-            '
+        command:
+            - '-e'
+            - |
                 input {
                     gelf {
                     }
@@ -22,8 +22,6 @@ services:
                         hosts => "elasticsearch:9200"
                     }
                 }
-            ',
-        ]
         expose:
             - 12201/udp
             - 5000/tcp
