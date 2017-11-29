@@ -32,6 +32,8 @@ services:
     elasticsearch:
         image: elasticsearch:5-alpine
         restart: always
+        environment:
+            ES_JAVA_OPTS: -Xms256m -Xmx256m
 
     kibana:
         image: kibana:5
